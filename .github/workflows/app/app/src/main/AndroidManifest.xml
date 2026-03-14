@@ -1,0 +1,13 @@
+<manifest package="com.skyzoom.app"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:label="Sky Zoom">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="YOUR_API_KEY"/>
+
+    </application>
+
+</manifest>
