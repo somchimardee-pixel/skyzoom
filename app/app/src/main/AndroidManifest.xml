@@ -5,6 +5,10 @@
         android:label="SkyZoom"
         android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAP-xlQtrRhBlkBm19XjzD2Vu30Y2I5wFg"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
