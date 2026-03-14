@@ -1,17 +1,43 @@
 package com.skyzoom.app;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.widget.TextView;
 
-public class MainActivity extends Activity {
+import androidx.fragment.app.FragmentActivity;
+
+import com.google.android.gms.maps.*;
+import com.google.android.gms.maps.model.*;
+
+public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
+
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        TextView tv = new TextView(this);
-        tv.setText("SkyZoom Running");
-        setContentView(tv);
+        SupportMapFragment mapFragment =
+                SupportMapFragment.newInstance();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(android.R.id.content, mapFragment)
+                .commit();
+
+        mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+        mMap = googleMap;
+
+        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+
+        LatLng thailand = new LatLng(13.736717, 100.523186);
+
+        mMap.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(thailand, 15)
+        );
+
     }
 }
