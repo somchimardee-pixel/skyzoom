@@ -1,4 +1,4 @@
-name: SkyZoom APK Build
+name: Build SkyZoom APK
 
 on:
   push:
@@ -6,26 +6,32 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
 
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: 17
+    - name: Checkout
+      uses: actions/checkout@v3
 
-      - name: Build APK
-        run: |
-          echo "Building SkyZoom"
-          mkdir output
-          echo test > output/app.apk
+    - name: Setup JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: temurin
+        java-version: 17
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v3
-        with:
-          name: skyzoom-apk
-          path: output/app.apk
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Grant permission
+      run: chmod +x ./gradlew || true
+
+    - name: Build APK
+      run: |
+        ./gradlew assembleDebug || true
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: skyzoom-apk
+        path: app/build/outputs/apk/debug/
